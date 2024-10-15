@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "HjVj1Ti2gZS6gWFyo+mZztrqrlxG+aRASI+JynJ6XHA=",
+  "Source": "Hospital.Integratio.Deploy",
+  "BasePath": "_content/Hospital.Integratio.Deploy",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

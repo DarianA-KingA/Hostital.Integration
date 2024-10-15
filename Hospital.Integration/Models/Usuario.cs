@@ -40,8 +40,6 @@ namespace Hospital.Integration.Models
 
         #region Navigation propeties
         public virtual ICollection<Perfiles> Perfiles { get; set; }
-        public virtual ICollection<Transacciones> TransaccionesCajero { get; set; }
-        public virtual ICollection<Transacciones> TransaccionesPaciente { get; set; }
         public virtual ICollection<Citas> Citas { get; set; }
         #endregion
 

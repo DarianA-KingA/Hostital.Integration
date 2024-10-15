@@ -9,7 +9,6 @@ namespace Hospital.Integration.Models
         [ForeignKey(nameof(Cajero))]
         public int IdCajero { get; set; }
         [Required]
-        [ForeignKey(nameof(Paciente))]
         public int IdPaciente { get; set; }
         [Required]
         [ForeignKey(nameof(Servicios))]
@@ -26,11 +25,10 @@ namespace Hospital.Integration.Models
 
         #region Navigation Properties
         public virtual Usuario Cajero { get; set; } // Propiedad de navegación para el Cajero (Usuario)
-        public virtual Usuario Paciente { get; set; } // Propiedad de navegación para el Paciente (Usuario)
         public virtual Servicios Servicios { get; set; }
         public virtual TipoTransaccion TipoTransacciones { get; set; }
         public virtual EstadoTransaccion EstadoTransacciones { get; set; }
-        public virtual ICollection<Citas> Citas { get; set; }
+        //public virtual ICollection<Citas> Citas { get; set; }
 
 
         #endregion

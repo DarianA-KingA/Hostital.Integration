@@ -1,4 +1,10 @@
 
+using Hospital.Integration.Context;
+using Hospital.Integration.Repository.Interface;
+using Hospital.Integration.Repository;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 namespace Hospital.Integration
 {
     public class Program
@@ -8,7 +14,11 @@ namespace Hospital.Integration
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddDbContext<ApplicationContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("RemoteConnection"));
+            });
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

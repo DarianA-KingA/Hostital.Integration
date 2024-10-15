@@ -18,7 +18,7 @@ namespace Hospital.Integration.Models
         #region Navigation propeties
         public virtual TipoServicio TipoServicio { get; set; }
         public virtual AreasMedicas AreasMedicas { get; set; }
-        public virtual Transacciones Transacciones { get; set; }
+        public virtual ICollection<Transacciones> Transacciones { get; set; }
         public virtual ICollection<Citas> Citas { get; set; }
         #endregion
     }

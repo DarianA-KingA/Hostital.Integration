@@ -32,6 +32,7 @@ namespace Hospital.Integration.Context
                 .Property(e => e.FechaAgendada)
                 .HasDefaultValueSql("GETDATE()");
 
+
             modelBuilder.Entity<AreasMedicas>()
                 .Property(e => e.Estado)
                 .HasDefaultValue(true);
@@ -82,7 +83,7 @@ namespace Hospital.Integration.Context
             modelBuilder.Entity<TipoServicio>()
                 .HasData(new TipoServicio()
                 {
-                    Id = 1,
+                    Id = 2,
                     Descripcion = "Procedimiento"
                 });
 

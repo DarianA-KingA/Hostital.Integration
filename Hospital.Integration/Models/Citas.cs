@@ -12,14 +12,14 @@ namespace Hospital.Integration.Models
         [ForeignKey(nameof(Servicios))]
         public int IdServicio { get; set; }
         [Required]
-        [ForeignKey(nameof(Transacciones))]
+        //[ForeignKey(nameof(Transacciones))]
         public int IdTransaccion { get; set; }
         public DateTime FechaAgendada { get; set; }
 
         #region Navigation properties
         public virtual Usuario Usuario { get; set; }
         public virtual Servicios Servicios { get; set; }
-        public virtual Transacciones Transacciones { get; set; }
+        //public virtual Transacciones Transacciones { get; set; }
         #endregion
     }
 }
