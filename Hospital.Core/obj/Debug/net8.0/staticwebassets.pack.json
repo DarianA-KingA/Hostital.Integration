@@ -13,6 +13,26 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\AreaMedica\\Index.js",
+      "PackagePath": "staticwebassets\\js\\AreaMedica\\Index.js"
+    },
+    {
+      "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\Citas\\Index.js",
+      "PackagePath": "staticwebassets\\js\\Citas\\Index.js"
+    },
+    {
+      "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\Servicios\\Index.js",
+      "PackagePath": "staticwebassets\\js\\Servicios\\Index.js"
+    },
+    {
+      "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\TiposServicios\\Index.js",
+      "PackagePath": "staticwebassets\\js\\TiposServicios\\Index.js"
+    },
+    {
+      "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\User\\Index.js",
+      "PackagePath": "staticwebassets\\js\\User\\Index.js"
+    },
+    {
       "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

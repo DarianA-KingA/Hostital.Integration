@@ -27,7 +27,7 @@ namespace Hospital.Core
                 options.LoginPath = $"/User/Login";
                 options.LogoutPath = $"/User/Login";
                 options.AccessDeniedPath = $"/User/Login";
-                options.ExpireTimeSpan = TimeSpan.FromDays(14); // Duración de la cookie de autenticación
+                options.ExpireTimeSpan = TimeSpan.FromDays(7); // Duración de la cookie de autenticación
                 options.SlidingExpiration = true;
             });
             builder.Services.AddDistributedMemoryCache();
@@ -51,11 +51,11 @@ namespace Hospital.Core
 
             app.UseRouting();
 
-            using (var scope = app.Services.CreateScope())
-            {
-                var DbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-                DbInitializer.Seed();
-            }
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var DbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+            //    DbInitializer.Seed();
+            //}
 
             app.UseAuthentication(); // Habilitar la autenticación
             app.UseAuthorization();

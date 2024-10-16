@@ -26,7 +26,10 @@ namespace Hospital.Core.Models
 
         public DateTime FechaCreacion { get; set; }
         public DateTime UltimaModificacion { get; set; }
+        [Required]
+        public bool Estado { get; set; }
 
         public virtual ICollection<Citas> Citas { get; set; }
+
     }
 }
