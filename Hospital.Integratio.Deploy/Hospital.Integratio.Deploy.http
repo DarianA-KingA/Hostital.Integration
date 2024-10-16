@@ -1,0 +1,6 @@
+@Hospital.Integratio.Deploy_HostAddress = http://localhost:5168
+
+GET {{Hospital.Integratio.Deploy_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

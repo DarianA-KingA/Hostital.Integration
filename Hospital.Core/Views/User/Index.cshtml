@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    var status = Context.Request.Query["status"];
+    var pending = "text-primary";
+    var inproccess = "text-primary";
+    var completed = "text-primary";
+    var approved = "text-primary";
+
+    var all = "text-primary";
+    switch (status)
+    {
+        case "pending":
+            pending = "active text-white";
+            break;
+        case "inproccess":
+            inproccess = "active text-white";
+            break;
+        case "completed":
+            completed = "active text-white";
+            break;
+        case "approved":
+            approved = "active text-white";
+            break;
+        default:
+            all = "active text-white";
+            break;
+    }
+}
+<div class=" p-3">
+    <div class="d-flex justify-content-between pt-4">
+        <div class="p-2">
+            <h2 class="text-primary">Mantenimiento Usuarios</h2>
+        </div>
+        <div class="p-2">
+            <a style="text-decoration:none;" class="btn btn-info" asp-controller="User"
+               asp-action="Create">
+                Agregar usuario
+            </a>
+        </div>
+    </div>
+    <br />
+    <table class="table table-bordered table-striped " id="tblData" style="width:100%;">
+        <thead>
+            <tr>
+                <th>
+                    Cedula
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Apellido
+                </th>
+                <th>
+                    Correo
+                </th>
+                <th>
+                    Telefono
+                </th>
+                <th>
+                    Rol
+                </th>
+                <th>
+                    @*buttons*@
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@section Scripts {
+    <script src="~/js/User/Index.js"></script>
+}
+
+

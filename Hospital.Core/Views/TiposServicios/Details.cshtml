@@ -1,0 +1,30 @@
+﻿@model Hospital.Core.Models.SaveViewModel.SaveTipoServicioViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form>
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">
+                Detalles tipo servicio
+            </h2>
+            <hr />
+        </div>
+        @* <div asp-validation-summary="All" class="alert alert-danger" ></div> *@
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Estado" />
+        <div class="row">
+            <div class="mb-3 col-lg-6">
+                <label asp-for="Descripcion">Descripcion</label>
+                <input asp-for="Descripcion" class="form-control" disabled/>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+        </div>
+
+        <a asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to list
+        </a>
+    </div>
+</form>

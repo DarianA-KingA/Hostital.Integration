@@ -1,30 +1,61 @@
 [
   {
     "ContainingType": "Hospital.Integration.Controllers.UsuarioController",
-    "Method": "Get",
-    "RelativePath": "Usuario",
-    "HttpMethod": "GET",
+    "Method": "Add",
+    "RelativePath": "Usuario/AddUsuario",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "message",
-        "Type": "System.String",
+        "Name": "usuario",
+        "Type": "Hospital.Integration.Models.DTO.UsuarioDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hospital.Integration.Controllers.UsuarioController",
+    "Method": "Delete",
+    "RelativePath": "Usuario/DisableUsuario",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Hospital.Integration.WeatherForecast, Hospital.Integration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "usuario",
+        "Type": "Hospital.Integration.Models.DTO.UsuarioDTO",
+        "IsRequired": true
       }
     ],
-    "EndpointName": "GetUsuario"
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hospital.Integration.Controllers.UsuarioController",
+    "Method": "Get",
+    "RelativePath": "Usuario/GetUsuario",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hospital.Integration.Controllers.UsuarioController",
+    "Method": "Update",
+    "RelativePath": "Usuario/UpdateUsuario",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuario",
+        "Type": "Hospital.Integration.Models.DTO.UsuarioDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Hospital.Integration.Controllers.WeatherForecastController",

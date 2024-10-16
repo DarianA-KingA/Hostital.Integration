@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Index";
+
+}
+<div class=" p-3">
+    <div class="d-flex justify-content-between pt-4">
+        <div class="p-2">
+            <h2 class="text-primary">Mantenimiento Servicios</h2>
+        </div>
+        <div class="p-2">
+            <a style="text-decoration:none;" class="btn btn-info" asp-controller="Servicios"
+               asp-action="Create">
+                Agregar Servicio
+            </a>
+        </div>
+    </div>
+    <br />
+    <table class="table table-bordered table-striped " id="tblData" style="width:100%;">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Tipo Servicio
+                </th>
+                <th>
+                    Area Medica
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Costo
+                </th>
+                <th>
+                    @*buttons*@
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@section Scripts {
+    <script src="~/js/Servicios/Index.js"></script>
+}
+
+

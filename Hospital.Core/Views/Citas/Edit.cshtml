@@ -1,0 +1,41 @@
+﻿@model Hospital.Core.Models.SaveViewModel.SaveCitaViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form method="post" asp-controller="Citas" asp-action="Edit">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">
+                Editar Cita
+            </h2>
+            <hr />
+        </div>
+        @* <div asp-validation-summary="All" class="alert alert-danger" ></div> *@
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Estado" />
+        <div class="row">
+            <div class="mb-3 col-lg-6">
+                <label asp-for="IdPaciente">Paciente</label>
+                @Html.DropDownListFor(m => m.IdPaciente, (IEnumerable<SelectListItem>)ViewBag.Users, "Elige el paciente", new { @class = "form-control", id = "roleSelect" })
+                <span asp-validation-for="IdPaciente" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-lg-6">
+                <label asp-for="IdServicio">Servicio</label>
+                @Html.DropDownListFor(m => m.IdServicio, (IEnumerable<SelectListItem>)ViewBag.Servicios, "Elige el servicio", new { @class = "form-control", id = "roleSelect" })
+                <span asp-validation-for="IdServicio" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-lg-6">
+                <label asp-for="FechaAgendada">FechaAgendada</label>
+                <input asp-for="FechaAgendada" class="form-control" />
+                <span asp-validation-for="FechaAgendada" class="text-danger"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to list
+        </a>
+    </div>
+</form>
