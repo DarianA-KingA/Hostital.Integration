@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Hospital.Integratio.Deploy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a3dae4024e64611c87a523b83447a5b1da19ad5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c832bc03dc678200d89b150438375a75f6c9109b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hospital.Integratio.Deploy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hospital.Integratio.Deploy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

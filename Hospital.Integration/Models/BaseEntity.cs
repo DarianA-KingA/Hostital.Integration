@@ -7,5 +7,8 @@ namespace Hospital.Integration.Models
         [Key]
         public int Id { get; set; }
         public bool Estado { get; set; }
+        public bool Pendiente { get; set; }
+        public string Accion { get; set; }
+
     }
 }

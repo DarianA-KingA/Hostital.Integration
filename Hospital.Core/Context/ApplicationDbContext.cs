@@ -18,6 +18,7 @@ namespace Hospital.Core.Context
         public DbSet<TipoServicio> TipoServicio { get; set; }
         public DbSet<TipoTransaccion> TipoTransaccion { get; set; }
         public DbSet<Transacciones> Transacciones { get; set; }
+        public DbSet<HorariosCitas> HorariosCitas { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

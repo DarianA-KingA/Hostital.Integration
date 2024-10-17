@@ -1,15 +1,47 @@
 [
   {
-    "ContainingType": "Hospital.Integration.Controllers.UsuarioController",
-    "Method": "Add",
-    "RelativePath": "Usuario/AddUsuario",
+    "ContainingType": "Hospital.Integration.Controllers.CitasController",
+    "Method": "CloseCita",
+    "RelativePath": "Citas/CloseCita",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "usuario",
-        "Type": "Hospital.Integration.Models.DTO.UsuarioDTO",
+        "Name": "cita",
+        "Type": "Hospital.Integration.DTO.SaveViewModel.CloseCitaIVewModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hospital.Integration.Controllers.ServiciosController",
+    "Method": "GetServicios",
+    "RelativePath": "Servicios/GetServicios",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tokenRequest",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hospital.Integration.Controllers.TransaccionController",
+    "Method": "AddTransaccion",
+    "RelativePath": "Transaccion/AddTransaccion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "newTrans",
+        "Type": "Hospital.Integration.DTO.SaveViewModel.SaveTransaccionViewModel",
         "IsRequired": true
       }
     ],
@@ -17,15 +49,15 @@
   },
   {
     "ContainingType": "Hospital.Integration.Controllers.UsuarioController",
-    "Method": "Delete",
-    "RelativePath": "Usuario/DisableUsuario",
-    "HttpMethod": "PUT",
+    "Method": "AddUser",
+    "RelativePath": "Usuario/AddUsuario",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "usuario",
-        "Type": "Hospital.Integration.Models.DTO.UsuarioDTO",
+        "Name": "newUser",
+        "Type": "Hospital.Integration.DTO.SaveViewModel.SaveUserViewModel",
         "IsRequired": true
       }
     ],
@@ -34,24 +66,14 @@
   {
     "ContainingType": "Hospital.Integration.Controllers.UsuarioController",
     "Method": "Get",
-    "RelativePath": "Usuario/GetUsuario",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Hospital.Integration.Controllers.UsuarioController",
-    "Method": "Update",
-    "RelativePath": "Usuario/UpdateUsuario",
-    "HttpMethod": "PUT",
+    "RelativePath": "Usuario/GetUsuarioWIthCita",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "usuario",
-        "Type": "Hospital.Integration.Models.DTO.UsuarioDTO",
+        "Name": "tokenRequest",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

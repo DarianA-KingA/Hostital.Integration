@@ -21,12 +21,20 @@
       "PackagePath": "staticwebassets\\js\\Citas\\Index.js"
     },
     {
+      "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\HorariosCitas\\Index.js",
+      "PackagePath": "staticwebassets\\js\\HorariosCitas\\Index.js"
+    },
+    {
       "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\Servicios\\Index.js",
       "PackagePath": "staticwebassets\\js\\Servicios\\Index.js"
     },
     {
       "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\TiposServicios\\Index.js",
       "PackagePath": "staticwebassets\\js\\TiposServicios\\Index.js"
+    },
+    {
+      "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\Transaccion\\Index.js",
+      "PackagePath": "staticwebassets\\js\\Transaccion\\Index.js"
     },
     {
       "Id": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\User\\Index.js",

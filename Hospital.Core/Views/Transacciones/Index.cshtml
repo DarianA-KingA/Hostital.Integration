@@ -8,9 +8,9 @@
             <h2 class="text-primary">Mantenimiento Citas</h2>
         </div>
         <div class="p-2">
-            <a style="text-decoration:none;" class="btn btn-info" asp-controller="Citas"
+            <a style="text-decoration:none;" class="btn btn-info" asp-controller="Transacciones"
                asp-action="Create">
-                Agregar Cita
+                Agregar Transaccion
             </a>
         </div>
     </div>
@@ -22,13 +22,22 @@
                     ID
                 </th>
                 <th>
+                    Nombre Cajero
+                </th>
+                <th>
                     Nombre paciente
                 </th>
                 <th>
-                    Servicio
+                    Tipo
                 </th>
                 <th>
-                    Fecha agendada
+                    Estado transaccion
+                </th>
+                <th>
+                    Monto
+                </th>
+                <th>
+                    Fecha
                 </th>
                 <th>
                     Estado
@@ -41,7 +50,7 @@
     </table>
 </div>
 @section Scripts {
-    <script src="~/js/Citas/Index.js"></script>
+    <script src="~/js/Transaccion/Index.js"></script>
 }
 
 

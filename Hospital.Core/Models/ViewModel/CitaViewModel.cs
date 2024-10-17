@@ -9,6 +9,7 @@ namespace Hospital.Core.Models.ViewModel
         public string IdPaciente { get; set; }
         public int IdServicio { get; set; }
         public string NombreServicio { get; set; }
+        public string HorarioCita { get; set; }
         public DateTime FechaAgendada { get; set; }
         public bool Estado { get; set; }
 
