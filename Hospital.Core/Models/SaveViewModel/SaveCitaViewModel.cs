@@ -12,6 +12,8 @@ namespace Hospital.Core.Models.SaveViewModel
         [Required]
         [DataType(DataType.Date)]
         public DateTime FechaAgendada { get; set; }
+        public int idHorarioCita { get; set; }
+
         public bool Estado { get; set; }
     }
 }

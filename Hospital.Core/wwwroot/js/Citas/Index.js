@@ -10,6 +10,7 @@ function loadDataTable() {
             { "data": "nombrePaciente" },
             { "data": "nombreServicio" },
             { "data": "fechaAgendada" },
+            { "data": "horarioCita" },
             {
                 "data": "estado",
                 "render": function (data) {

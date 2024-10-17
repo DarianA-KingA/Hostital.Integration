@@ -1,47 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Hospital.Integration.DTO.SaveViewModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hospital.Integration.Models
 {
     public class Usuario:BaseEntity
     {
-
+        public string UserId { get; set; }
         [Required]
-        [MaxLength(100)]
-        public string Nombres { get; set; }
-
+        public string UserName { get; set; }
         [Required]
-        [MaxLength(100)]
-        public string Apellidos { get; set; }
-
+        public string Email { get; set; }
         [Required]
-        [MaxLength(100)]
-        public string Correo { get; set; }
-
+        public string Name { get; set; }
         [Required]
-        [MaxLength(200)]
-        public string Clave { get; set; }
-
+        public string LastName { get; set; }
         [Required]
-        public string Telefono { get; set; }
-
+        public string PhoneNumber { get; set; }
         [Required]
-        public DateTime FechaNacimiento { get; set; } 
-
+        public string Address { get; set; }
         [Required]
-        [MaxLength(11)]
+        public DateTime Birthday { get; set; }
+        [Required]
         public string Cedula { get; set; }
-
         [Required]
-        [MaxLength(250)]
-        public string Direccion { get; set; }
-
-        public DateTime FechaCreacion { get; set; } 
-        public DateTime UltimaModificacion { get; set; }
-
-        #region Navigation propeties
-        public virtual ICollection<Perfiles> Perfiles { get; set; }
-        public virtual ICollection<Citas> Citas { get; set; }
-        #endregion
+        public string Password { get; set; }
+        [Required]
+        public string RoleName { get; set; }
 
 
     }

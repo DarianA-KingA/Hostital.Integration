@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ag3pBDBjV+potz0CzHY3Xh1pxRPDU85OyTNkHp1An3Q=",
+  "Hash": "AjdSxLhMc9w91sHoJiYmdmzhtBTGb8sh/8Jd5pxvmMg=",
   "Source": "Hospital.Core",
   "BasePath": "_content/Hospital.Core",
   "Mode": "Default",
@@ -1271,6 +1271,25 @@
       "OriginalItemSpec": "wwwroot\\js\\Citas\\Index.js"
     },
     {
+      "Identity": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\HorariosCitas\\Index.js",
+      "SourceId": "Hospital.Core",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\",
+      "BasePath": "_content/Hospital.Core",
+      "RelativePath": "js/HorariosCitas/Index.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\HorariosCitas\\Index.js"
+    },
+    {
       "Identity": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\Servicios\\Index.js",
       "SourceId": "Hospital.Core",
       "SourceType": "Discovered",
@@ -1326,6 +1345,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\TiposServicios\\Index.js"
+    },
+    {
+      "Identity": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\Transaccion\\Index.js",
+      "SourceId": "Hospital.Core",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\",
+      "BasePath": "_content/Hospital.Core",
+      "RelativePath": "js/Transaccion/Index.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Transaccion\\Index.js"
     },
     {
       "Identity": "C:\\Users\\daria\\source\\repos\\Hospital.Integration\\Hospital.Core\\wwwroot\\js\\User\\Index.js",

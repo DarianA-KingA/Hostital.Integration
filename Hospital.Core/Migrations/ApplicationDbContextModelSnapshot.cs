@@ -161,11 +161,16 @@ namespace Hospital.Core.Migrations
                     b.Property<int>("IdServicio")
                         .HasColumnType("int");
 
+                    b.Property<int>("idHorarioCita")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdPaciente");
 
                     b.HasIndex("IdServicio");
+
+                    b.HasIndex("idHorarioCita");
 
                     b.ToTable("Citas");
                 });
@@ -189,6 +194,28 @@ namespace Hospital.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EstadoTransacciones");
+                });
+
+            modelBuilder.Entity("Hospital.Core.Models.HorariosCitas", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<TimeSpan>("HoraFin")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("HoraInicio")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HorariosCitas");
                 });
 
             modelBuilder.Entity("Hospital.Core.Models.Servicios", b =>
@@ -270,6 +297,10 @@ namespace Hospital.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Comentario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
@@ -279,17 +310,13 @@ namespace Hospital.Core.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdCajero")
-                        .HasColumnType("int");
+                    b.Property<string>("IdCajero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdCita")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdPaciente")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdServicio")
-                        .HasColumnType("int");
+                    b.Property<string>("IdPaciente")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Monto")
                         .HasColumnType("float");
@@ -303,8 +330,6 @@ namespace Hospital.Core.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EstadoTransaccion");
-
-                    b.HasIndex("IdCita");
 
                     b.HasIndex("ServiciosId");
 
@@ -460,6 +485,14 @@ namespace Hospital.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Hospital.Core.Models.HorariosCitas", "HorariosCitas")
+                        .WithMany("Citas")
+                        .HasForeignKey("idHorarioCita")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HorariosCitas");
+
                     b.Navigation("Servicios");
 
                     b.Navigation("Usuario");
@@ -492,12 +525,6 @@ namespace Hospital.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hospital.Core.Models.Citas", "Citas")
-                        .WithMany("Transacciones")
-                        .HasForeignKey("IdCita")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Hospital.Core.Models.Servicios", null)
                         .WithMany("Transacciones")
                         .HasForeignKey("ServiciosId");
@@ -507,8 +534,6 @@ namespace Hospital.Core.Migrations
                         .HasForeignKey("TipoTransaccion")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Citas");
 
                     b.Navigation("EstadoTransacciones");
 
@@ -576,14 +601,14 @@ namespace Hospital.Core.Migrations
                     b.Navigation("Servicios");
                 });
 
-            modelBuilder.Entity("Hospital.Core.Models.Citas", b =>
+            modelBuilder.Entity("Hospital.Core.Models.EstadoTransaccion", b =>
                 {
                     b.Navigation("Transacciones");
                 });
 
-            modelBuilder.Entity("Hospital.Core.Models.EstadoTransaccion", b =>
+            modelBuilder.Entity("Hospital.Core.Models.HorariosCitas", b =>
                 {
-                    b.Navigation("Transacciones");
+                    b.Navigation("Citas");
                 });
 
             modelBuilder.Entity("Hospital.Core.Models.Servicios", b =>

@@ -51,6 +51,11 @@ namespace Hospital.Core.Controllers
                 Text = s.TipoServicio.Descripcion+", "+ s.AreasMedicas.Descripcion
 
             }).ToList();
+            ViewBag.Horarios = _context.HorariosCitas.Select(s => new SelectListItem 
+            {
+                Value = s.Id.ToString(),
+                Text = s.HoraInicio.ToString() + " - "+s.HoraFin.ToString()
+            });
             return View(new SaveCitaViewModel());
         }
         [HttpPost]
@@ -63,7 +68,8 @@ namespace Hospital.Core.Controllers
                     IdPaciente = model.IdPaciente,
                     IdServicio = model.IdServicio,
                     FechaAgendada = model.FechaAgendada,
-                    Estado = true
+                    Estado = true,
+                    idHorarioCita = model.idHorarioCita
                 });
                 _context.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,7 +95,12 @@ namespace Hospital.Core.Controllers
                 Text = s.TipoServicio.Descripcion + ", " + s.AreasMedicas.Descripcion
 
             }).ToList();
-            return View(new SaveCitaViewModel());
+            ViewBag.Horarios = _context.HorariosCitas.Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = s.HoraInicio.ToString() + " - " + s.HoraFin.ToString()
+            });
+            return View(model);
         }
         public async Task<IActionResult> Edit(int id)
         {
@@ -117,13 +128,20 @@ namespace Hospital.Core.Controllers
                 Text = s.TipoServicio.Descripcion + ", " + s.AreasMedicas.Descripcion
 
             }).ToList();
+            ViewBag.Horarios = _context.HorariosCitas.Select(s => new SelectListItem
+            {
+                Selected = s.Id == cita.idHorarioCita,
+                Value = s.Id.ToString(),
+                Text = s.HoraInicio.ToString() + " - " + s.HoraFin.ToString()
+            });
             return View(new SaveCitaViewModel()
             {
                 Id = cita.Id,
                 IdPaciente = cita.IdPaciente,
                 IdServicio = cita.IdServicio,
                 FechaAgendada = cita.FechaAgendada,
-                Estado = cita.Estado
+                Estado = cita.Estado,
+                idHorarioCita = cita.idHorarioCita
             });
         }
         [HttpPost]
@@ -137,7 +155,8 @@ namespace Hospital.Core.Controllers
                     IdPaciente = model.IdPaciente,
                     IdServicio = model.IdServicio,
                     FechaAgendada = model.FechaAgendada,
-                    Estado = true
+                    Estado = true,
+                    idHorarioCita = model.idHorarioCita
                 });
                 _context.SaveChanges();
                 return RedirectToAction("Index");
@@ -156,7 +175,12 @@ namespace Hospital.Core.Controllers
                 Value = u.Id,
                 Text = u.Name + " " + u.LastName
             }).ToList();
-
+            ViewBag.Horarios = _context.HorariosCitas.Select(s => new SelectListItem
+            {
+                Selected = s.Id == model.idHorarioCita,
+                Value = s.Id.ToString(),
+                Text = s.HoraInicio.ToString() + " - " + s.HoraFin.ToString()
+            });
             ViewBag.Servicios = _context.Servicios.Include(s => s.TipoServicio).Include(s => s.AreasMedicas).Select(s => new SelectListItem
             {
                 Value = s.Id.ToString(),
@@ -197,7 +221,8 @@ namespace Hospital.Core.Controllers
                 IdPaciente = cita.IdPaciente,
                 IdServicio = cita.IdServicio,
                 FechaAgendada = cita.FechaAgendada,
-                Estado = cita.Estado
+                Estado = cita.Estado,
+                idHorarioCita = cita.idHorarioCita
             });
         }
         public IActionResult ActivateDisactivate(int id)
@@ -211,14 +236,15 @@ namespace Hospital.Core.Controllers
         public JsonResult GetAll()
         {
             var listCitas = new List<CitaViewModel>();
-            foreach (var cita in _context.Citas.Include(e=>e.Usuario).Include(e=>e.Servicios))
+            foreach (var cita in _context.Citas.Include(e=>e.Usuario).Include(e=>e.Servicios).Include(e=>e.HorariosCitas))
             {
                 var preCita = new CitaViewModel()
                 {
                     Id = cita.Id,
                     NombrePaciente = cita.Usuario.Name + " " + cita.Usuario.LastName,
                     FechaAgendada = cita.FechaAgendada,
-                    Estado = cita.Estado
+                    Estado = cita.Estado,
+                    HorarioCita = cita.HorariosCitas.HoraInicio.ToString()+" - "+ cita.HorariosCitas.HoraFin.ToString()
                 };
                 preCita.NombreServicio = _context.Servicios.Include(e => e.TipoServicio).Where(s=>s.Id == cita.IdServicio).FirstOrDefault().TipoServicio.Descripcion;
                 listCitas.Add(preCita);
