@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Common;
+using Serilog;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Hospital.Core.Controllers
@@ -162,9 +163,9 @@ namespace Hospital.Core.Controllers
                 },
                 TipoServicio = new 
                 {
-                    Id = s.AreasMedicas.Id,
-                    Descripcion = s.AreasMedicas.Descripcion,
-                    Estado = s.AreasMedicas.Estado
+                    Id = s.TipoServicio.Id,
+                    Descripcion = s.TipoServicio.Descripcion,
+                    Estado = s.TipoServicio.Estado
                 }
             });
             return Ok(servicios);

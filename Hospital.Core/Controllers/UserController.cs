@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Serilog;
 using System.Net;
 
 namespace Hospital.Core.Controllers
@@ -43,6 +44,7 @@ namespace Hospital.Core.Controllers
                     var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
                     if (await _userManager.IsInRoleAsync(user, SD.Role_Admin))
                     {
+                        Log.Logger.Information($"Acceso de {user.Name} {user.LastName}");
                         return Redirect(ViewBag.ReturnURL ?? Url.Action("Index", "Home"));
 
                     }

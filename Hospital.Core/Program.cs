@@ -4,6 +4,9 @@ using Hospital.Core.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Serilog.Events;
+using Serilog.Sinks.MSSqlServer;
+using Serilog;
 
 namespace Hospital.Core
 {
@@ -37,6 +40,19 @@ namespace Hospital.Core
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug() // Establecer el nivel mínimo de log
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning) // Sobrescribir nivel para categorías específicas
+            .Enrich.FromLogContext() // Enriquecer los logs con el contexto actual
+            .WriteTo.Console() // Opción de escribir en consola
+            .WriteTo.MSSqlServer(
+                connectionString: builder.Configuration.GetConnectionString("DefaultConnection"), // Cambia por tu cadena de conexión
+                sinkOptions: new MSSqlServerSinkOptions { TableName = "Logs", AutoCreateSqlTable = true }, // Crear automáticamente la tabla
+                restrictedToMinimumLevel: LogEventLevel.Information // Nivel mínimo para SQL Server
+            )
+            .CreateLogger();
+
+            Log.Information("Iniciando integracion");
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

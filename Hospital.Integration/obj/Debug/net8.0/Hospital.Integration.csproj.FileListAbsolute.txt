@@ -155,3 +155,5 @@ C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\
 C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\Serilog.Sinks.File.dll
 C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\Serilog.Sinks.MSSqlServer.dll
 C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\System.ClientModel.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\Flurl.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\Flurl.Http.dll
