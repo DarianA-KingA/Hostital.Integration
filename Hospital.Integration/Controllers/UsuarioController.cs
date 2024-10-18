@@ -6,6 +6,7 @@ using Hospital.Integration.Models;
 using Hospital.Integration.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Serilog;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -15,8 +16,6 @@ namespace Hospital.Integration.Controllers
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private const string token = "Integration";
-        private const string urlLocal = "https://localhost:44330/Acces";
         ApplicationContext _context;
         Core _core;
         public UsuarioController(ApplicationContext context)
@@ -31,8 +30,6 @@ namespace Hospital.Integration.Controllers
             if(string.IsNullOrEmpty(newUser.Token) ||(newUser.Token != SD.Token_Caja && newUser.Token != SD.Token_Web))
                 return StatusCode(401, "Acceso no autorizado");
             try
-            { await _core.Transfer(); }catch (Exception ex) { }
-            try
             {
                 var client = new HttpClient();
                 newUser.Token = SD.Token_Integration;
@@ -41,22 +38,26 @@ namespace Hospital.Integration.Controllers
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 // Enviar la solicitud POST al endpoint
-                var response = await client.PostAsync($"{urlLocal}/CreateUser", content);
+                var response = await client.PostAsync($"{SD.localURL}/CreateUser", content);
 
                 if (response.IsSuccessStatusCode)
                 {
+                    Log.Logger.Information($"Usuario {newUser.UserName} agregado");
                     return Ok();
+
                 }
                 else
                 {
                     
                     var errorContent = await response.Content.ReadAsStringAsync();
+                    Log.Logger.Error(errorContent);
                     return StatusCode(500, errorContent);
                 }
             }
             catch (Exception ex) 
             {
-                if (!await _core.CoreOnline())
+                var CoreDisponible = await _core.CheckHealth();
+                if (!CoreDisponible)
                 {
                     if (_context.Usuarios.Where(u => u.Cedula == newUser.Cedula).Count() == 0)
                     {
@@ -79,7 +80,8 @@ namespace Hospital.Integration.Controllers
                         });
                         _context.SaveChanges();
                     }
-                    return StatusCode(200, "Cambio guardado en integracion");
+                    Log.Logger.Warning($"Usuario {newUser.UserName} guardado en integración pendiente de sincronización");
+                    return StatusCode(200, "Usuario guardado en integración pendiente de sincronización");
                 }
                 return StatusCode(500, ex);
 
@@ -93,7 +95,7 @@ namespace Hospital.Integration.Controllers
             if (tokenRequest != SD.Token_Caja && tokenRequest != SD.Token_Web)
                 return StatusCode(401, "Acceso no autorizado");
             var client = new HttpClient();
-
+            Log.Logger.Information($"{tokenRequest} solicito lista de usuarios");
             // El token que enviarás al endpoint
             var token = "Integration";
 
@@ -102,7 +104,7 @@ namespace Hospital.Integration.Controllers
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             // Enviar la solicitud POST al endpoint
-            var response = await client.PostAsync($"{urlLocal}/GetUserWithAppoinmnet", content);
+            var response = await client.PostAsync($"{SD.localURL}/GetUserWithAppoinmnet", content);
 
 
             if (response.IsSuccessStatusCode)
@@ -110,104 +112,16 @@ namespace Hospital.Integration.Controllers
                 // Leer la respuesta
                 var responseData = await response.Content.ReadAsStringAsync();
                 var usuario  = JsonConvert.DeserializeObject<List<UsuarioViewModel>>(responseData);
+                Log.Logger.Information("Informacion solicitada de usuaios");
+
                 return Ok(usuario);
             }
             else
             {
                 var errorContent = await response.Content.ReadAsStringAsync();
+                Log.Logger.Error( $"Error al solicitar usuarios: {errorContent}");
                 return StatusCode(500,errorContent);
             }
         }
-        #region Codigo Comentado
-        //[HttpPost("AddUsuario")]
-        //public async Task<IActionResult> Add([FromBody] UsuarioDTO usuario)
-        //{
-        //    try
-        //    {
-        //        _unitOfWork.Usuario.Add(new Usuario
-        //        {
-        //            Nombres = usuario.Nombres,
-        //            Apellidos = usuario.Apellidos,
-        //            Correo = usuario.Correo,
-        //            Clave = usuario.Clave,
-        //            Telefono = usuario.Telefono,
-        //            FechaNacimiento = usuario.FechaNacimiento,
-        //            Cedula = usuario.Cedula,
-        //            Direccion = usuario.Direccion,
-        //        });
-        //        await _unitOfWork.SaveAsync();
-        //        return Ok();
-        //    }
-        //    catch (Exception ex) 
-        //    {
-        //        return StatusCode(500, "Ocurrió un error al guardar el usuario. " + ex.Message);
-        //    }
-
-        //}
-        //[HttpGet("GetUsuario")]
-        //public IActionResult Get()
-        //{
-        //    return Ok(_unitOfWork.Usuario.GetAll().ToList());
-        //}
-
-        //[HttpPut("UpdateUsuario")]
-        //public async Task<IActionResult> Update([FromBody] UsuarioDTO usuario)
-        //{
-        //    try
-        //    {
-        //        _unitOfWork.Usuario.Update(new Usuario
-        //        {
-        //            Id = usuario.Id,
-        //            Nombres = usuario.Nombres,
-        //            Apellidos = usuario.Apellidos,
-        //            Correo = usuario.Correo,
-        //            Clave = usuario.Clave,
-        //            Telefono = usuario.Telefono,
-        //            FechaNacimiento = usuario.FechaNacimiento,
-        //            Cedula = usuario.Cedula,
-        //            Direccion = usuario.Direccion,
-        //            Estado = usuario.Estado,
-        //            FechaCreacion = usuario.FechaCreacion,
-        //            UltimaModificacion = DateTime.Now,
-        //        });
-        //        await _unitOfWork.SaveAsync();
-        //        return Ok();
-        //    }
-        //    catch (Exception ex) 
-        //    {
-        //        return StatusCode(500, "Ocurrió un error al actulizar el usuario. " + ex.Message);
-
-        //    }
-        //}
-        //[HttpPut("DisableUsuario")]
-        //public async Task<IActionResult> Delete([FromBody] UsuarioDTO usuario)
-        //{
-        //    try
-        //    {
-        //        _unitOfWork.Usuario.Remove(new Usuario
-        //        {
-        //            Id = usuario.Id,
-        //            Nombres = usuario.Nombres,
-        //            Apellidos = usuario.Apellidos,
-        //            Correo = usuario.Correo,
-        //            Clave = usuario.Clave,
-        //            Telefono = usuario.Telefono,
-        //            FechaNacimiento = usuario.FechaNacimiento,
-        //            Cedula = usuario.Cedula,
-        //            Direccion = usuario.Direccion,
-        //            Estado = usuario.Estado,
-        //            FechaCreacion = usuario.FechaCreacion,
-        //            UltimaModificacion = DateTime.Now,
-        //        });
-        //        await _unitOfWork.SaveAsync();
-        //        return Ok();
-        //    }
-        //    catch (Exception ex) 
-        //    {
-        //        return StatusCode(500, "Ocurrió un error al guardar el usuario. " + ex.Message);
-        //    }
-
-        //}
-        #endregion
     }
 }

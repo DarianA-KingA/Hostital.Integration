@@ -450,3 +450,16 @@ C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\obj\Debug\
 C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\obj\Debug\net8.0\win-x86\Hospital.Integration.pdb
 C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\obj\Debug\net8.0\win-x86\Hospital.Integration.genruntimeconfig.cache
 C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\obj\Debug\net8.0\win-x86\ref\Hospital.Integration.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Flurl.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Flurl.Http.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Serilog.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Serilog.AspNetCore.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Serilog.Extensions.Hosting.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Serilog.Extensions.Logging.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Serilog.Formatting.Compact.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Serilog.Settings.Configuration.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Serilog.Sinks.Console.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Serilog.Sinks.Debug.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Serilog.Sinks.File.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\Serilog.Sinks.MSSqlServer.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Integration\bin\Debug\net8.0\win-x86\System.ClientModel.dll

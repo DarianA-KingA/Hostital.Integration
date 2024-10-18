@@ -51,7 +51,7 @@ namespace Hospital.Core
                 restrictedToMinimumLevel: LogEventLevel.Information // Nivel mínimo para SQL Server
             )
             .CreateLogger();
-
+            builder.Services.AddHealthChecks();
             Log.Information("Iniciando integracion");
             var app = builder.Build();
 
@@ -66,6 +66,13 @@ namespace Hospital.Core
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication(); // Habilitar la autenticación
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                // Endpoint para health check
+                endpoints.MapHealthChecks("/health");
+            });
 
             //using (var scope = app.Services.CreateScope())
             //{
@@ -73,8 +80,7 @@ namespace Hospital.Core
             //    DbInitializer.Seed();
             //}
 
-            app.UseAuthentication(); // Habilitar la autenticación
-            app.UseAuthorization();
+            
             app.UseSession();
 
             app.MapControllerRoute(

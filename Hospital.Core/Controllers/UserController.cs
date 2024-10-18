@@ -62,6 +62,8 @@ namespace Hospital.Core.Controllers
         public async Task<IActionResult> Logout() 
         {
             await _signInManager.SignOutAsync();
+            Log.Logger.Information("Sesion cerrada");
+
             return RedirectToAction("Login");
         }
         [Authorize]
@@ -112,6 +114,7 @@ namespace Hospital.Core.Controllers
                     if (result.Succeeded)
                     {
                         result = await _userManager.AddToRoleAsync(user, model.RoleName);
+                        Log.Logger.Information("Usuario creado");
                         return RedirectToAction("Index");
                     }
                     else
@@ -191,6 +194,8 @@ namespace Hospital.Core.Controllers
                         result = await _userManager.AddToRoleAsync(user, model.RoleName);
 
                     }
+                    Log.Logger.Information("Usuario editado");
+
                     return RedirectToAction("Index", "User");
                 }
                 else
@@ -244,6 +249,8 @@ namespace Hospital.Core.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             user.Estado = !user.Estado;
             await _userManager.UpdateAsync(user);
+            Log.Logger.Information("Usuario desactivado/activado");
+
             return RedirectToAction("Index");
         } 
         [Authorize]
