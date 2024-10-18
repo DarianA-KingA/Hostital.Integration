@@ -28,13 +28,13 @@ namespace Hospital.Integration
             .Enrich.FromLogContext() // Enriquecer los logs con el contexto actual
             .WriteTo.Console() // Opción de escribir en consola
             .WriteTo.MSSqlServer(
-                connectionString: "Server=LAPTOP-U18PB02K;Database=TempHospitalDB;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True;", // Cambia por tu cadena de conexión
+                connectionString: builder.Configuration.GetConnectionString("DefaultConnection"), // Cambia por tu cadena de conexión
                 sinkOptions: new MSSqlServerSinkOptions { TableName = "Logs", AutoCreateSqlTable = true }, // Crear automáticamente la tabla
                 restrictedToMinimumLevel: LogEventLevel.Information // Nivel mínimo para SQL Server
             )
             .CreateLogger();
 
-            Log.Information("Iniciando la aplicación web");
+            Log.Information("Iniciando integracion");
 
             var app = builder.Build();
 

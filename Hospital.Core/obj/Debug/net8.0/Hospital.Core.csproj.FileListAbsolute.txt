@@ -267,3 +267,14 @@ C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\obj\Debug\net8.0\
 C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\obj\Debug\net8.0\Hospital.Core.pdb
 C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\obj\Debug\net8.0\Hospital.Core.genruntimeconfig.cache
 C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\obj\Debug\net8.0\ref\Hospital.Core.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\Serilog.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\Serilog.AspNetCore.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\Serilog.Extensions.Hosting.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\Serilog.Extensions.Logging.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\Serilog.Formatting.Compact.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\Serilog.Settings.Configuration.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\Serilog.Sinks.Console.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\Serilog.Sinks.File.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\Serilog.Sinks.MSSqlServer.dll
+C:\Users\daria\source\repos\Hospital.Integration\Hospital.Core\bin\Debug\net8.0\System.ClientModel.dll

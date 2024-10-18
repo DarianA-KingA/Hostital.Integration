@@ -1,5 +1,7 @@
-﻿using Hospital.Integration.DTO.SaveViewModel;
+﻿using Hospital.Integration.Context;
+using Hospital.Integration.DTO.SaveViewModel;
 using Hospital.Integration.DTO.ViewModel;
+using Hospital.Integration.Helpers;
 using Hospital.Integration.Models;
 using Hospital.Integration.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -15,8 +17,12 @@ namespace Hospital.Integration.Controllers
     {
         private const string token = "Integration";
         private const string urlLocal = "https://localhost:44330/Acces";
-        public UsuarioController( )
+        ApplicationContext _context;
+        Core _core;
+        public UsuarioController(ApplicationContext context)
         {
+            _context = context;
+            _core = new Core(context);
         }
         [HttpPost("AddUsuario")]
 
@@ -24,24 +30,61 @@ namespace Hospital.Integration.Controllers
         {
             if(string.IsNullOrEmpty(newUser.Token) ||(newUser.Token != SD.Token_Caja && newUser.Token != SD.Token_Web))
                 return StatusCode(401, "Acceso no autorizado");
-            var client = new HttpClient();
-            newUser.Token = SD.Token_Integration;
-            // Serializar el objeto a JSON
-            var json = JsonConvert.SerializeObject(newUser);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            // Enviar la solicitud POST al endpoint
-            var response = await client.PostAsync($"{urlLocal}/CreateUser", content);
-
-            if (response.IsSuccessStatusCode)
+            try
+            { await _core.Transfer(); }catch (Exception ex) { }
+            try
             {
-                return Ok();
+                var client = new HttpClient();
+                newUser.Token = SD.Token_Integration;
+                // Serializar el objeto a JSON
+                var json = JsonConvert.SerializeObject(newUser);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Enviar la solicitud POST al endpoint
+                var response = await client.PostAsync($"{urlLocal}/CreateUser", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    return StatusCode(500, errorContent);
+                }
             }
-            else
+            catch (Exception ex) 
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                return StatusCode(500,errorContent);
+                if (!await _core.CoreOnline())
+                {
+                    if (_context.Usuarios.Where(u => u.Cedula == newUser.Cedula).Count() == 0)
+                    {
+                        _context.Usuarios.Add(new Usuario()
+                        {
+                            UserId = newUser.Id ?? string.Empty,
+                            UserName = newUser.UserName,
+                            Email = newUser.Email,
+                            Name = newUser.Name,
+                            LastName = newUser.LastName,
+                            PhoneNumber = newUser.PhoneNumber,
+                            Address = newUser.Address,
+                            Birthday = newUser.Birthday,
+                            Cedula = newUser.Cedula,
+                            Password = newUser.Password,
+                            RoleName = newUser.RoleName,
+                            Estado = true,
+                            Pendiente = true,
+                            Accion = SD.Accion_Agregar
+                        });
+                        _context.SaveChanges();
+                    }
+                    return StatusCode(200, "Cambio guardado en integracion");
+                }
+                return StatusCode(500, ex);
+
             }
+
         }
 
         [HttpPost("GetUsuarioWIthCita")]
