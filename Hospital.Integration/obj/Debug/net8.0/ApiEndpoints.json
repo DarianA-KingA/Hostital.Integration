@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "Hospital.Integration.Controllers.CitasController",
+    "Method": "AddCita",
+    "RelativePath": "Citas/AddCita",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Hospital.Integration.DTO.SaveViewModel.SaveCitaViewModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hospital.Integration.Controllers.CitasController",
     "Method": "CloseCita",
     "RelativePath": "Citas/CloseCita",
     "HttpMethod": "POST",
@@ -10,6 +26,22 @@
       {
         "Name": "cita",
         "Type": "Hospital.Integration.DTO.SaveViewModel.CloseCitaIVewModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hospital.Integration.Controllers.HorariosController",
+    "Method": "GetHorarios",
+    "RelativePath": "Horarios/GetHorarios",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

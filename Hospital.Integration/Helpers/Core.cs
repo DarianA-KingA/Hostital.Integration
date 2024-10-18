@@ -1,7 +1,10 @@
 ﻿using Flurl.Http;
 using Hospital.Integration.Context;
 using Hospital.Integration.DTO.SaveViewModel;
+using Hospital.Integration.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Serilog;
 using System.Text;
 
 namespace Hospital.Integration.Helpers
@@ -9,37 +12,41 @@ namespace Hospital.Integration.Helpers
     public class Core
     {
         private readonly ApplicationContext _context;
-        private const string token = "Integration";
-        private const string urlLocal = "https://localhost:44330/Acces";
         public Core( ApplicationContext context)
         {
             _context = context;
         }
         
-        public async Task<bool> CoreOnline()
+        public async Task<bool> CheckHealth()
         {
             try
             {
-                var client = new HttpClient();
+                // Llamar al endpoint de health check de la aplicación web
+                var response = await $"{SD.coreUrl}/health"
+                    .GetAsync();
 
-                // El token que enviarás al endpoint
-                var token = "Integration";
-
-                // Serializar el token a JSON
-                var json = JsonConvert.SerializeObject(token);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                // Enviar la solicitud POST al endpoint
-                var response = await client.GetAsync($"{urlLocal}/GetServicios");
-                return response.IsSuccessStatusCode;
+                // Si la respuesta es exitosa (200 OK), significa que la web está disponible
+                if (response.StatusCode == 200)
+                {
+                    return true; // La aplicación web está disponible
+                }
+                else
+                {
+                    return false; // La aplicación web no está disponible
+                }
             }
-            catch (Exception ex) { return false; }
-            
+            catch (FlurlHttpException)
+            {
+                return false; // Si hay una excepción, la aplicación web no está disponible
+            }
+
         }
-        public async Task Transfer()
+        public async Task TransferUser()
         {
-            string baseUrlUser = $"{urlLocal}/CreateUser";
-            var usarios =  _context.Usuarios.Where(u => u.Pendiente);
+            if (!await CheckHealth())
+                return;
+            string baseUrlUser = $"{SD.localURL}/CreateUser";
+            var usarios =  _context.Usuarios.AsNoTracking().Where(u => u.Pendiente);
             foreach (var usario in usarios)
             {
                 var model = new SaveUserViewModel() 
@@ -61,14 +68,121 @@ namespace Hospital.Integration.Helpers
                     var result = await baseUrlUser.PostJsonAsync(model);
                     if (result.ResponseMessage.IsSuccessStatusCode)
                     {
+                        Log.Logger.Information($"Usuario {usario.UserName} sincronizado con el core.");
                         usario.Pendiente = false;
+                        _context.Usuarios.Update( usario );
+                        _context.SaveChanges();
                     }
                 }
-                catch (Exception ex)
+                catch (FlurlHttpException ex)
                 {
-                    
+                        Log.Logger.Error($"Error al sincronizar Usuario {usario.UserName} con el core: {ex.Message}");
+
                 }
-               
+
+            }
+        }
+        public async Task TransferTransaccion()
+        {
+            if (!await CheckHealth())
+                return;
+            string baseUrlUser = $"{SD.localURL}/AddTransaccion";
+            var transacciones = _context.Transacciones.AsNoTracking().Where(t=>t.Pendiente).ToList();
+            foreach (var trans in transacciones)
+            {
+                var model = new SaveTransaccionViewModel()
+                {
+                    IdCajero = trans.IdCajero,
+                    IdPaciente = trans.IdPaciente,
+                    IdEstadoTransaccion = trans.IdEstadoTransaccion,
+                    IdTipoTransaccion = trans.IdTipoTransaccion,
+                    Monto = trans.Monto,
+                    Fecha = trans.Fecha,
+                    Comentario = trans.Comentario ?? string.Empty,
+                    Token = SD.Token_Integration
+                };
+                try
+                {
+                    var result = await baseUrlUser.PostJsonAsync(model);
+                    if (result.ResponseMessage.IsSuccessStatusCode)
+                    {
+                        Log.Logger.Information($"Transaccion [ID: {trans.Id}] sincroizada a core.");
+                        trans.Pendiente = false;
+                        _context.Transacciones.Update(trans);
+                        _context.SaveChanges();
+                    }
+                }
+                catch (FlurlHttpException ex)
+                {
+                    Log.Logger.Error($"Error al sincronizar Transaccion [ID: {trans.Id}] con el core: {ex.Message}");
+
+                }
+            }
+        }
+        public async Task TransferirCita()
+        {
+            if (!await CheckHealth())
+                return;
+            string baseUrlUser = $"{SD.localURL}/AddCita";
+            var citas = _context.Citas.AsNoTracking().Where(t => t.Pendiente && t.Accion == SD.Accion_Agregar).ToList();
+            foreach (var cita in citas)
+            {
+                var model =  new SaveCitaViewModel()
+                {
+                    IdPaciente = cita.IdPaciente,
+                    IdServicio = cita.IdServicio,
+                    FechaAgendada = cita.FechaAgendada,
+                    idHorarioCita = cita.IdHorarioCita,
+                    Estado = cita.Estado,
+                    Token = SD.Token_Integration
+                };
+                try
+                {
+                    var result = await baseUrlUser.PostJsonAsync(model);
+                    if (result.ResponseMessage.IsSuccessStatusCode)
+                    {
+                        Log.Logger.Information($"Cita sincronizada [ID: {cita.Id}] con el core.");
+                        cita.Pendiente = false;
+                        _context.Citas.Update(cita);
+                        _context.SaveChanges();
+                    }
+                }
+                catch (FlurlHttpException ex)
+                {
+                    Log.Logger.Error($"Error al sincronizar Cita [ID: {cita.Id}] con el core: {ex.Message}");
+
+                }
+            }
+        }
+        public async Task CerrarCitas()
+        {
+            if (!await CheckHealth())
+                return;
+            string baseUrlUser = $"{SD.localURL}/CloseCitas";
+            var citas = _context.Citas.AsNoTracking().Where(t => t.Pendiente && t.Accion == SD.Accion_Modificar).ToList();
+            foreach (var cita in citas)
+            {
+                var model = new 
+                {
+                    IdCita = cita.IdCita,
+                    Token = SD.Token_Integration
+                };
+                try
+                {
+                    var result = await baseUrlUser.PostJsonAsync(model);
+                    if (result.ResponseMessage.IsSuccessStatusCode)
+                    {
+                        Log.Logger.Information($"Cita sincronizada [ID: {cita.Id}] con el core.");
+                        cita.Pendiente = false;
+                        _context.Citas.Update(cita);
+                        _context.SaveChanges();
+                    }
+                }
+                catch (FlurlHttpException ex)
+                {
+                    Log.Logger.Error($"Error al sincronizar Cita [ID: {cita.Id}] con el core: {ex.Message}");
+
+                }
             }
         }
     }

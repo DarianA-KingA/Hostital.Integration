@@ -190,7 +190,7 @@ namespace Hospital.Core.Controllers
                 return StatusCode(401, "Acceso denegado");
             try
             {
-                _context.Transacciones.Add(new Transacciones()
+                var x = _context.Transacciones.Add(new Transacciones()
                 {
                     IdCajero = transaccionDTO.IdCajero,
                     IdPaciente = transaccionDTO.IdPaciente,
@@ -199,14 +199,53 @@ namespace Hospital.Core.Controllers
                     Monto = transaccionDTO.Monto,
                     Fecha = transaccionDTO.Fecha,
                     //IdCita = transaccionDTO.idCita,
-                    Comentario = transaccionDTO.Comentario ?? ""
+                    Comentario = transaccionDTO.Comentario ?? "",
+                    Estado = true,
                 });
+                _context.SaveChanges();
+                int id = x.Entity.Id;
+                return Ok(id);
+            }
+            catch (Exception ex) 
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpPost]
+        public IActionResult GetHorarios([FromBody] string token)
+        {
+            if (token != SD.Token_Integration)
+                return StatusCode(401, "Acceso denegado");
+            var horarios = _context.HorariosCitas.Select(c => new 
+            {
+                c.Id,
+                c.HoraInicio,
+                c.HoraFin,
+                c.Estado
+            });
+            return Ok(horarios);
+        }
+        [HttpPost]
+        public IActionResult AddCita([FromBody] SaveCitaViewModelDTO citaDTO)
+        {
+            if (citaDTO.Token != SD.Token_Integration)
+                return StatusCode(401, "Acceso denegado");
+            _context.Citas.Add(new Citas 
+            {
+                IdPaciente = citaDTO.IdPaciente,
+                IdServicio = citaDTO.IdServicio,
+                FechaAgendada = citaDTO.FechaAgendada,
+                idHorarioCita = citaDTO.idHorarioCita,
+                Estado = true
+            });
+            try
+            {
                 _context.SaveChanges();
                 return Ok();
             }
             catch (Exception ex) 
             {
-                return StatusCode(500, ex);
+                return StatusCode(500, ex.Message);
             }
         }
 

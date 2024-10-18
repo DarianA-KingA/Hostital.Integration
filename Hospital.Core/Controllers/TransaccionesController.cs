@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Hospital.Core.Controllers
 {
@@ -85,6 +86,8 @@ namespace Hospital.Core.Controllers
                     Estado = true,
                 });
                 _context.SaveChanges();
+                Log.Logger.Information("Transaccion creada");
+
                 return RedirectToAction("Index");
             }
             ViewBag.TipoTransaccion = _context.TipoTransaccion.Select(e => new SelectListItem
@@ -205,6 +208,8 @@ namespace Hospital.Core.Controllers
                     Estado = model.Estado,
                 });
                 _context.SaveChanges();
+                Log.Logger.Information("Transaccion modificada");
+
                 return RedirectToAction("Index");
             }
             ViewBag.TipoTransaccion = _context.TipoTransaccion.Select(e => new SelectListItem
@@ -292,6 +297,8 @@ namespace Hospital.Core.Controllers
                 Value = e.Id.ToString(),
                 Text = e.Usuario.Name + " " + e.Usuario.LastName + " | " + e.HorariosCitas.HoraInicio.ToString() + " - " + e.HorariosCitas.HoraFin.ToString()
             });
+            Log.Logger.Information("Transaccion consultada");
+
             return View(
                 new SaveTransaccionViewModel()
                 {
@@ -315,6 +322,7 @@ namespace Hospital.Core.Controllers
             transaccion.Estado = !transaccion.Estado;
             _context.Transacciones.Update(transaccion);
             _context.SaveChanges();
+            Log.Logger.Information("Transaccion desactivada");
             return RedirectToAction("Index");
         }
         public JsonResult GetAll()

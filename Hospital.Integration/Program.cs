@@ -5,6 +5,7 @@ using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using Serilog;
 using System;
+using Hospital.Integration.Helpers;
 
 namespace Hospital.Integration
 {
@@ -35,6 +36,7 @@ namespace Hospital.Integration
             .CreateLogger();
 
             Log.Information("Iniciando integracion");
+            builder.Services.AddHostedService<SincronizacionBackgroundService>();
 
             var app = builder.Build();
 
